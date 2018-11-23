@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import dadm.scaffold.counter.EndOfGameFragment;
 import dadm.scaffold.counter.GameFragment;
 import dadm.scaffold.counter.MainMenuFragment;
 
@@ -18,7 +19,7 @@ public class ScaffoldActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scaffold);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new MainMenuFragment(), TAG_FRAGMENT)
+                        .add(R.id.container, new MainMenuFragment(), TAG_FRAGMENT)
                     .commit();
         }
     }
@@ -28,7 +29,18 @@ public class ScaffoldActivity extends AppCompatActivity {
         navigateToFragment( new GameFragment());
     }
 
+    public void endGameScreen(boolean win, int enemiesKilled, int seconds){
+        BaseFragment dst = new EndOfGameFragment();
+        Bundle bun = new Bundle();
+        bun.putBoolean("WIN",win);
+        bun.putInt("SCORE",enemiesKilled);
+        bun.putInt("SECONDS",seconds);
+        dst.setArguments(bun);
+        navigateToFragment(dst);
+    }
+
     private void navigateToFragment(BaseFragment dst) {
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, dst, TAG_FRAGMENT)

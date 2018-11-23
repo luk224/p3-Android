@@ -42,6 +42,7 @@ public class Bullet extends Sprite {
         gameEngine.removeGameObject(this);
         // And return it to the pool
         parent.releaseBullet(this);
+
     }
 
     public void onCollision(GameEngine gameEngine, ScreenGameObject otherObject) {
@@ -51,6 +52,9 @@ public class Bullet extends Sprite {
             removeObject(gameEngine);
             Enemy e = (Enemy) otherObject;
             e.removeObject(gameEngine);
+            parent.score++;
+            parent.checkWin(gameEngine);
+
         }
     }
 

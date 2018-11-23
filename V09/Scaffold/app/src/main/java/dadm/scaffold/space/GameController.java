@@ -28,9 +28,6 @@ public class GameController extends GameObject {
     }
 
 
-
-
-
     @Override
     public void onUpdate(long elapsedMillis, GameEngine gameEngine) {
         mCurrentMillis+= elapsedMillis;

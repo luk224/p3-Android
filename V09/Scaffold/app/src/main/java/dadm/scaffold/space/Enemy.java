@@ -1,5 +1,7 @@
 package dadm.scaffold.space;
 
+import android.util.Log;
+
 import dadm.scaffold.R;
 import dadm.scaffold.engine.GameEngine;
 import dadm.scaffold.engine.Sprite;
@@ -26,10 +28,12 @@ public class Enemy extends Sprite {
     public void onUpdate(long elapsedMillis, GameEngine gameEngine) {
         positionX += mSpeedX * elapsedMillis;
         positionY += mSpeedY * elapsedMillis;
+
+        //Log.i("Velocidad modulo:"," "+Math.sqrt(mSpeedX*mSpeedX+mSpeedY*mSpeedY));
         //Check of the sprite goes out of the screen    if (mPositionY > gameEngine.mHeight) {      // Return to the pool      gameEngine.removeGameObject(this);      mController.returnToPool(this);    }
         //Sistema de coordenadas: https://stackoverflow.com/questions/11483345/how-do-android-screen-coordinates-work
 
-        if(positionY > gameEngine.height - mHeight){ //Se sale por abajo
+        if(positionY > gameEngine.height + mHeight){ //Se sale por abajo
             removeObject(gameEngine);
         }else if(positionX > gameEngine.width-mWidth){ //Se sale por la derecha
             removeObject(gameEngine);
@@ -47,6 +51,7 @@ public class Enemy extends Sprite {
         Double angle = gameEngine.mRandom.nextDouble() * Math.PI / 3d - Math.PI / 6d;
         mSpeedX = mSpeed * Math.sin(angle);
         mSpeedY = mSpeed * Math.cos(angle);
+
         positionX = gameEngine.mRandom.nextInt(gameEngine.width / 2) + gameEngine.width / 4;
         positionY = -mHeight;
     }

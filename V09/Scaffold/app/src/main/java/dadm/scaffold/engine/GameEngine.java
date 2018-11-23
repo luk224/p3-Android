@@ -17,7 +17,7 @@ public class GameEngine {
     private List<GameObject> gameObjects = new ArrayList<GameObject>();
     private List<GameObject> objectsToAdd = new ArrayList<GameObject>();
     private List<GameObject> objectsToRemove = new ArrayList<GameObject>();
-    private List<ScreenGameObject> mCollisionableObjects;
+    private List<ScreenGameObject> mCollisionableObjects = new ArrayList<ScreenGameObject>();
 
     private UpdateThread theUpdateThread;
     private DrawThread theDrawThread;
@@ -29,7 +29,7 @@ public class GameEngine {
     public double pixelFactor;
     public Random mRandom;
 
-    private Activity mainActivity;
+    public Activity mainActivity;
 
 
     public GameEngine(Activity activity, GameView gameView) {
@@ -45,7 +45,6 @@ public class GameEngine {
 
         this.pixelFactor = this.height / 400d;
 
-        mCollisionableObjects = new ArrayList<>();
 
     }
 
@@ -81,6 +80,15 @@ public class GameEngine {
         }
     }
 
+    public void finishGame(){
+        if (theUpdateThread != null) {
+            theUpdateThread.finishGame();
+        }
+        if (theDrawThread != null) {
+            theDrawThread.finishGame();
+        }
+    }
+
     public void pauseGame() {
         if (theUpdateThread != null) {
             theUpdateThread.pauseGame();
@@ -104,7 +112,6 @@ public class GameEngine {
             ScreenGameObject sgo = (ScreenGameObject) gameObject;
             if (sgo.mBodyType != ScreenGameObject.BodyType.None) {
                 mCollisionableObjects.add(sgo);
-
             }
         }
         if (isRunning()) {
@@ -125,10 +132,10 @@ public class GameEngine {
     public void onUpdate(long elapsedMillis) {
         int numGameObjects = gameObjects.size();
         for (int i = 0; i < numGameObjects; i++) {
-
             gameObjects.get(i).onUpdate(elapsedMillis, this);
-            checkCollisions(this);
         }
+        Log.i("GO: ", " " +gameObjects.size());
+        checkCollisions(this);
         synchronized (gameObjects) {
             while (!objectsToRemove.isEmpty()) {
                 GameObject go = objectsToRemove.get(0);
@@ -136,11 +143,9 @@ public class GameEngine {
                     ScreenGameObject sgo = (ScreenGameObject) go;
                     if (sgo.mBodyType != ScreenGameObject.BodyType.None) {
                        mCollisionableObjects.remove(sgo);
-
                     }
                 }
                 gameObjects.remove(objectsToRemove.remove(0));
-
             }
             while (!objectsToAdd.isEmpty()) {
                 gameObjects.add(objectsToAdd.remove(0));
@@ -166,7 +171,7 @@ public class GameEngine {
 
     private void checkCollisions(GameEngine gameEngine) {
         int numObjects = mCollisionableObjects.size();
-        Log.i("Colisionables: ",""+numObjects);
+        //Log.i("Colisionables: ",""+numObjects);
         for (int i = 0; i < numObjects; i++) {
             ScreenGameObject objectA = mCollisionableObjects.get(i);
             for (int j = i + 1; j < numObjects; j++) {

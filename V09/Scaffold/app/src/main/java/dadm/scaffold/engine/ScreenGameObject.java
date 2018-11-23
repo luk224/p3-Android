@@ -38,7 +38,7 @@ public abstract class ScreenGameObject extends GameObject {
                 other.mHeight /2);
         double squareDistance = distanceX*distanceX +
                 distanceY*distanceY;
-        double collisionDistance = (mRadius + other.mRadius+20);
+        double collisionDistance = (mRadius + other.mRadius);
         if(squareDistance <= collisionDistance*collisionDistance){
             return  true;
         }else

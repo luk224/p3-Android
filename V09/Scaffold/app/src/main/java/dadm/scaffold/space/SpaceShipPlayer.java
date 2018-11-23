@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dadm.scaffold.R;
+import dadm.scaffold.ScaffoldActivity;
 import dadm.scaffold.engine.GameEngine;
+import dadm.scaffold.engine.ScreenGameObject;
 import dadm.scaffold.engine.Sprite;
 import dadm.scaffold.input.InputController;
 
+
+
 public class SpaceShipPlayer extends Sprite {
+
+    public int health = 100;
+    public int score = 0;
+    public int FINAL_SCORE = 10;
 
     private static final int INITIAL_BULLET_POOL_AMOUNT = 6;
     private static final long TIME_BETWEEN_BULLETS = 250;
@@ -21,7 +29,7 @@ public class SpaceShipPlayer extends Sprite {
 
 
     public SpaceShipPlayer(GameEngine gameEngine){
-        super(gameEngine, R.drawable.ship,BodyType.Circular);
+        super(gameEngine, R.drawable.ship_2,BodyType.Circular);
         speedFactor = pixelFactor * 100d / 1000d; // We want to move at 100px per second on a 400px tall screen
         maxX = gameEngine.width - mWidth;
         maxY = gameEngine.height - mHeight;
@@ -78,7 +86,12 @@ public class SpaceShipPlayer extends Sprite {
     }
 
     private void checkFiring(long elapsedMillis, GameEngine gameEngine) {
-        if (gameEngine.theInputController.isFiring && timeSinceLastFire > TIME_BETWEEN_BULLETS) {
+        automaticFire(elapsedMillis,gameEngine);
+        specialFire(elapsedMillis,gameEngine);
+
+    }
+    private void automaticFire(long elapsedMillis, GameEngine gameEngine){
+        if ( timeSinceLastFire > TIME_BETWEEN_BULLETS) {
             Bullet bullet = getBullet();
             if (bullet == null) {
                 return;
@@ -89,6 +102,33 @@ public class SpaceShipPlayer extends Sprite {
         }
         else {
             timeSinceLastFire += elapsedMillis;
+        }
+    }
+
+    private void specialFire(long elapsedMillis, GameEngine gameEngine){
+        //TODO Pulsar el boton de disparo: gameEngine.theInputController.isFiring
+        //TODO poner nuevo timelastSpecialFire
+    }
+
+    public void onCollision(GameEngine gameEngine, ScreenGameObject otherObject) {
+
+        if (otherObject instanceof Enemy) {    // Remove both from the game (and return them to their pools)
+            health -=10;
+            if(health <=0){
+                gameEngine.removeGameObject(this);
+                gameEngine.finishGame();
+                ((ScaffoldActivity)gameEngine.mainActivity).endGameScreen(false,score,0);//TODO contar tiempo.
+            }
+
+            Enemy e = (Enemy) otherObject;
+            e.removeObject(gameEngine);
+        }
+    }
+
+    public void checkWin(GameEngine gameEngine){
+        if(score >=FINAL_SCORE){
+            gameEngine.finishGame();
+            ((ScaffoldActivity)gameEngine.mainActivity).endGameScreen(true,score,0);//TODO contar tiempo.
         }
     }
 
