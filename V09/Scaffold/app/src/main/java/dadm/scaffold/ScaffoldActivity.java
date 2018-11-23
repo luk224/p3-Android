@@ -8,6 +8,7 @@ import android.view.View;
 import dadm.scaffold.counter.EndOfGameFragment;
 import dadm.scaffold.counter.GameFragment;
 import dadm.scaffold.counter.MainMenuFragment;
+import dadm.scaffold.counter.SpaceShipSelectorFragment;
 
 public class ScaffoldActivity extends AppCompatActivity {
 
@@ -24,19 +25,27 @@ public class ScaffoldActivity extends AppCompatActivity {
         }
     }
 
-    public void startGame() {
+    public void startGame(int shipSelected) {
         // Navigate the the game fragment, which makes the start automatically
-        navigateToFragment( new GameFragment());
+        BaseFragment dst =  new GameFragment();
+        Bundle bun = new Bundle();
+        bun.putInt("SHIP_SELECTED",shipSelected);
+        dst.setArguments(bun);
+        navigateToFragment(dst);
     }
 
     public void endGameScreen(boolean win, int enemiesKilled, int seconds){
         BaseFragment dst = new EndOfGameFragment();
         Bundle bun = new Bundle();
         bun.putBoolean("WIN",win);
+
         bun.putInt("SCORE",enemiesKilled);
         bun.putInt("SECONDS",seconds);
         dst.setArguments(bun);
         navigateToFragment(dst);
+    }
+    public void goToSelector(){
+        navigateToFragment(new SpaceShipSelectorFragment());
     }
 
     private void navigateToFragment(BaseFragment dst) {

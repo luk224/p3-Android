@@ -37,6 +37,8 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        final int ship_selected = getArguments().getInt("SHIP_SELECTED");
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.btn_play_pause).setOnClickListener(this);
         final ViewTreeObserver observer = view.getViewTreeObserver();
@@ -49,11 +51,11 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 GameView gameView = (GameView) getView().findViewById(R.id.gameView);
                 theGameEngine = new GameEngine(getActivity(), gameView);
                 theGameEngine.setTheInputController(new JoystickInputController(getView()));
-                SpaceShipPlayer ssp = new SpaceShipPlayer(theGameEngine);
+                SpaceShipPlayer ssp = new SpaceShipPlayer(theGameEngine , ship_selected);
                 theGameEngine.addGameObject(ssp);
                 theGameEngine.addGameObject(new PlayerHealthUI(theGameEngine,ssp));
                 theGameEngine.addGameObject(new PlayerScoreUI(theGameEngine,ssp));
-                theGameEngine.addGameObject(new GameController(theGameEngine));
+                theGameEngine.addGameObject(new GameController(theGameEngine,ssp));
                 theGameEngine.addGameObject(new FramesPerSecondCounter(theGameEngine));
                 theGameEngine.startGame();
             }

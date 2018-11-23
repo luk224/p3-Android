@@ -1,6 +1,7 @@
 package dadm.scaffold.space;
 
 import android.graphics.Canvas;
+import android.widget.Space;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,8 @@ public class GameController extends GameObject {
     int TIME_BETWEEN_ENEMIES = 500;
     int INITIAL_ENEMY_POOL_AMOUNT = 10;
     List<Enemy> mEnemyPool = new ArrayList<Enemy>();
+    SpaceShipPlayer spaceShipPlayer;
+    int MAX_ENEMIES = 50;
 
     @Override
     public void startGame() {
@@ -22,8 +25,8 @@ public class GameController extends GameObject {
     }
 
 
-    public GameController(GameEngine gameEngine){
-
+    public GameController(GameEngine gameEngine, SpaceShipPlayer spaceShipPlayer){
+        this.spaceShipPlayer =spaceShipPlayer;
         initEnemyPool(gameEngine);
     }
 
@@ -40,6 +43,10 @@ public class GameController extends GameObject {
             e.init(gameEngine);
             gameEngine.addGameObject(e);
             mEnemiesSpawned++; //Hacer solo si remove no ha devuelto null
+            if(mEnemiesSpawned >=MAX_ENEMIES)
+                spaceShipPlayer.win(gameEngine);
+
+
         }
     }
 

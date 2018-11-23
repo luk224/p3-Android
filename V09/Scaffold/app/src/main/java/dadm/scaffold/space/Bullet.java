@@ -53,7 +53,7 @@ public class Bullet extends Sprite {
             Enemy e = (Enemy) otherObject;
             e.removeObject(gameEngine);
             parent.score++;
-            parent.checkWin(gameEngine);
+           
 
         }
     }

@@ -1,9 +1,10 @@
 package dadm.scaffold.space;
 
+import android.os.SystemClock;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import dadm.scaffold.R;
 import dadm.scaffold.ScaffoldActivity;
 import dadm.scaffold.engine.GameEngine;
 import dadm.scaffold.engine.ScreenGameObject;
@@ -16,7 +17,7 @@ public class SpaceShipPlayer extends Sprite {
 
     public int health = 100;
     public int score = 0;
-    public int FINAL_SCORE = 10;
+
 
     private static final int INITIAL_BULLET_POOL_AMOUNT = 6;
     private static final long TIME_BETWEEN_BULLETS = 250;
@@ -26,15 +27,18 @@ public class SpaceShipPlayer extends Sprite {
     private int maxX;
     private int maxY;
     private double speedFactor;
+    private long startTime = 0L;
 
 
-    public SpaceShipPlayer(GameEngine gameEngine){
-        super(gameEngine, R.drawable.ship_2,BodyType.Circular);
+    public SpaceShipPlayer(GameEngine gameEngine, int ship_selected){
+
+        super(gameEngine, ship_selected, BodyType.Circular);
         speedFactor = pixelFactor * 100d / 1000d; // We want to move at 100px per second on a 400px tall screen
         maxX = gameEngine.width - mWidth;
         maxY = gameEngine.height - mHeight;
 
         initBulletPool(gameEngine);
+        startTime = SystemClock.uptimeMillis();
     }
 
     private void initBulletPool(GameEngine gameEngine) {
@@ -117,7 +121,7 @@ public class SpaceShipPlayer extends Sprite {
             if(health <=0){
                 gameEngine.removeGameObject(this);
                 gameEngine.finishGame();
-                ((ScaffoldActivity)gameEngine.mainActivity).endGameScreen(false,score,0);//TODO contar tiempo.
+                ((ScaffoldActivity)gameEngine.mainActivity).endGameScreen(false,score,timer());
             }
 
             Enemy e = (Enemy) otherObject;
@@ -125,11 +129,15 @@ public class SpaceShipPlayer extends Sprite {
         }
     }
 
-    public void checkWin(GameEngine gameEngine){
-        if(score >=FINAL_SCORE){
-            gameEngine.finishGame();
-            ((ScaffoldActivity)gameEngine.mainActivity).endGameScreen(true,score,0);//TODO contar tiempo.
-        }
+    public void win(GameEngine gameEngine){
+
+        gameEngine.finishGame();
+        ((ScaffoldActivity)gameEngine.mainActivity).endGameScreen(true,score,timer());
+
+    }
+    public int timer(){
+        long timeInMil = SystemClock.uptimeMillis()-startTime;
+        return (int) (timeInMil/1000);
     }
 
 }

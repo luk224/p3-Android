@@ -34,7 +34,16 @@ public class EndOfGameFragment  extends BaseFragment implements View.OnClickList
             ((TextView) view.findViewById(R.id.text_win)).setText("YOU LOSE"); //TODO Strings.
         }
         ((TextView) view.findViewById(R.id.text_score)).setText( Integer.toString(getArguments().getInt("SCORE")));
-        ((TextView) view.findViewById(R.id.text_time)).setText( Integer.toString(getArguments().getInt("SECONDS")));//TODO poner todo en formato correcto.
+        int secs = (getArguments().getInt("SECONDS"));
+        int min = secs/60;
+        secs%=60;
+        if(secs<10){
+            ((TextView) view.findViewById(R.id.text_time)).setText(min+":0"+secs);
+        }else{
+
+            ((TextView) view.findViewById(R.id.text_time)).setText(min+":"+secs);
+        }
+
 
         super.onViewCreated(view, savedInstanceState);
     }
