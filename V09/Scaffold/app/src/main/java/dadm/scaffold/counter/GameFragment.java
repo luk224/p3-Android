@@ -19,6 +19,7 @@ import dadm.scaffold.engine.PlayerHealthUI;
 import dadm.scaffold.engine.PlayerScoreUI;
 import dadm.scaffold.input.JoystickInputController;
 import dadm.scaffold.space.GameController;
+import dadm.scaffold.space.ParallaxBackground;
 import dadm.scaffold.space.SpaceShipPlayer;
 
 
@@ -51,6 +52,8 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 GameView gameView = (GameView) getView().findViewById(R.id.gameView);
                 theGameEngine = new GameEngine(getActivity(), gameView);
                 theGameEngine.setTheInputController(new JoystickInputController(getView()));
+                theGameEngine.addGameObject(new ParallaxBackground(theGameEngine,400    ,R.drawable.wallpaper2));
+                theGameEngine.addGameObject(new ParallaxBackground(theGameEngine,600    ,R.drawable.planet));
                 SpaceShipPlayer ssp = new SpaceShipPlayer(theGameEngine , ship_selected);
                 theGameEngine.addGameObject(ssp);
                 theGameEngine.addGameObject(new PlayerHealthUI(theGameEngine,ssp));

@@ -6,18 +6,34 @@ import android.widget.Space;
 import java.util.ArrayList;
 import java.util.List;
 
+import dadm.scaffold.R;
 import dadm.scaffold.engine.GameEngine;
 import dadm.scaffold.engine.GameObject;
 import dadm.scaffold.engine.ScreenGameObject;
 
 public class GameController extends GameObject {
+    SpaceShipPlayer spaceShipPlayer;
     long mCurrentMillis = 0;
+
+    //////
+    //Enemies:
+    //////
     int mEnemiesSpawned = 0;
     int TIME_BETWEEN_ENEMIES = 500;
     int INITIAL_ENEMY_POOL_AMOUNT = 10;
     List<Enemy> mEnemyPool = new ArrayList<Enemy>();
-    SpaceShipPlayer spaceShipPlayer;
-    int MAX_ENEMIES = 50;
+    int MAX_ENEMIES = 50; //Cuando salgan estos enemigos se acaba la partida.
+
+
+    //////
+    //Items
+    //////
+
+    int mItemsSpawned = 0;
+    int TIME_BETWEEN_ITEMS = 5000;
+    int INITIAL_ITEM_POOL_AMOUNT = 20;
+    List<Item> mItemPool = new ArrayList<Item>();
+
 
     @Override
     public void startGame() {
@@ -28,6 +44,7 @@ public class GameController extends GameObject {
     public GameController(GameEngine gameEngine, SpaceShipPlayer spaceShipPlayer){
         this.spaceShipPlayer =spaceShipPlayer;
         initEnemyPool(gameEngine);
+        initItemPool(gameEngine);
     }
 
 
@@ -48,6 +65,17 @@ public class GameController extends GameObject {
 
 
         }
+
+        long waveTimestampItems = mItemsSpawned*TIME_BETWEEN_ITEMS;
+        if(mCurrentMillis>waveTimestampItems){//Spawn new enemy
+            Item i = getItem();
+            if(i==null){
+                return;
+            }
+            i.init(gameEngine);
+            gameEngine.addGameObject(i);
+            mItemsSpawned++; //Hacer solo si remove no ha devuelto null
+        }
     }
 
     @Override
@@ -59,6 +87,14 @@ public class GameController extends GameObject {
             mEnemyPool.add(new Enemy(this,gameEngine));
         }
     }
+    private void initItemPool(GameEngine gameEngine) {
+        for (int i=0; i<INITIAL_ITEM_POOL_AMOUNT; i++) {
+            int type = gameEngine.mRandom.nextInt(3);
+            mItemPool.add(new Item(this,type,gameEngine));
+        }
+    }
+
+
 
     private Enemy getEnemy() {
         if (mEnemyPool.isEmpty()) {
@@ -67,7 +103,17 @@ public class GameController extends GameObject {
         return mEnemyPool.remove(0);
     }
 
+    private Item getItem() {
+        if (mItemPool.isEmpty()) {
+            return null;
+        }
+        return mItemPool.remove(0);
+    }
+
     void releaseEnemy(Enemy enemy) {
         mEnemyPool.add(enemy);
+    }
+    void releaseItem(Item item) {
+        mItemPool.add(item);
     }
 }

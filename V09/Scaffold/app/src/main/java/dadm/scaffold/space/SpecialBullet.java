@@ -1,22 +1,22 @@
 package dadm.scaffold.space;
 
-import android.util.Log;
-
 import dadm.scaffold.R;
 import dadm.scaffold.engine.GameEngine;
 import dadm.scaffold.engine.ScreenGameObject;
 import dadm.scaffold.engine.Sprite;
 
-public class Bullet extends Sprite {
+public class SpecialBullet  extends Sprite {
+    private double mSpeed;
 
-    private double speedFactor;
-
+    private double mSpeedX, mSpeedY;
     private SpaceShipPlayer parent;
+    private int direction;
 
-    public Bullet(GameEngine gameEngine) {
-        super(gameEngine, R.drawable.bullet, BodyType.Circular);
-
-        speedFactor = gameEngine.pixelFactor * -300d / 1000d;
+    public SpecialBullet(GameEngine gameEngine,int direction){ //0º is Up
+        super(gameEngine, R.drawable.bullet, BodyType.Circular);//TODO cambiar sprite
+        rotation = -direction;
+        this.direction= direction;
+        mSpeed = gameEngine.pixelFactor * - 300d / 1000d;
     }
 
     @Override
@@ -25,8 +25,17 @@ public class Bullet extends Sprite {
 
     @Override
     public void onUpdate(long elapsedMillis, GameEngine gameEngine) {
-        positionY += speedFactor * elapsedMillis;
-        if (positionY < -mHeight) {
+
+
+        positionX += mSpeedX * elapsedMillis;
+        positionY += mSpeedY * elapsedMillis;
+
+
+        if(positionY < 0){ //Se sale por arriba
+            removeObject(gameEngine);
+        }else if(positionX > gameEngine.width-mWidth){ //Se sale por la derecha
+            removeObject(gameEngine);
+        }else if(positionX < mWidth){ //Se sale por la izquierda
             removeObject(gameEngine);
         }
     }
@@ -36,12 +45,17 @@ public class Bullet extends Sprite {
         positionX = initPositionX - mWidth / 2;
         positionY = initPositionY - mHeight / 2;
         parent = parentPlayer;
+
+        mSpeedX = mSpeed * Math.sin(Math.toRadians(direction));
+        mSpeedY = mSpeed *Math.cos(Math.toRadians(direction));
+
+
     }
 
     public void removeObject(GameEngine gameEngine){
         gameEngine.removeGameObject(this);
         // And return it to the pool
-        parent.releaseBullet(this);
+        parent.releaseSpecialBullet(this);
 
     }
 
@@ -52,9 +66,9 @@ public class Bullet extends Sprite {
             removeObject(gameEngine);
             Enemy e = (Enemy) otherObject;
             e.removeObject(gameEngine);
-            parent.scoreUp();
+            parent.score++;
+
 
         }
     }
-
 }
