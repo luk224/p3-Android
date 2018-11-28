@@ -16,11 +16,11 @@ public class ParallaxBackground extends GameObject {
     private final double mPixelFactor;
     private final double mSpeedY;
     private final int mImageWidth, mImageHeight,mScreenHeight,mScreenWidth,mTargetWidth;
-    private int mPositionY;
+    private double mPositionY;
     private final Matrix mMatrix = new Matrix();
     private Rect mSrcRect, mDstRect;
 
-    public ParallaxBackground(GameEngine gameEngine, int speed,
+    public ParallaxBackground(GameEngine gameEngine, double speed,
                               int drawableResId) {
         Drawable spriteDrawable = gameEngine.getContext().getResources()
                 .getDrawable(drawableResId);
@@ -29,6 +29,7 @@ public class ParallaxBackground extends GameObject {
         mPixelFactor = gameEngine.pixelFactor;
 
         mSpeedY = speed * mPixelFactor / 1000d;
+
         mImageHeight = (int) (spriteDrawable.getIntrinsicHeight() * mPixelFactor);
         mImageWidth = (int) (spriteDrawable.getIntrinsicWidth() * mPixelFactor);
 
@@ -49,6 +50,7 @@ public class ParallaxBackground extends GameObject {
     @Override
     public void onUpdate(long elapsedMillis, GameEngine gameEngine) {
         mPositionY += mSpeedY * elapsedMillis;
+
     }
     @Override
     public void onDraw(Canvas canvas) {

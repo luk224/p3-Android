@@ -4,6 +4,9 @@ import android.content.Context;
 
 import java.util.List;
 
+import dadm.scaffold.input.InputController;
+import dadm.scaffold.input.JoystickInputController;
+
 public interface GameView {
 
     void draw();

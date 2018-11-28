@@ -132,9 +132,10 @@ public class GameEngine {
     public void onUpdate(long elapsedMillis) {
         int numGameObjects = gameObjects.size();
         for (int i = 0; i < numGameObjects; i++) {
+
             gameObjects.get(i).onUpdate(elapsedMillis, this);
         }
-        Log.i("GO: ", " " +gameObjects.size());
+
         checkCollisions(this);
         synchronized (gameObjects) {
             while (!objectsToRemove.isEmpty()) {

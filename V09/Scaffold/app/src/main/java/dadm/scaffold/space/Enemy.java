@@ -1,7 +1,5 @@
 package dadm.scaffold.space;
 
-import android.util.Log;
-
 import dadm.scaffold.R;
 import dadm.scaffold.engine.GameEngine;
 import dadm.scaffold.engine.Sprite;
@@ -14,9 +12,10 @@ public class Enemy extends Sprite {
 
 
     public Enemy(GameController gameController, GameEngine gameEngine) {
-        //super(gameEngine.getContext(), R.drawable.robot, gameEngine.pixelFactor); //Este es del libro pero no funciona.
-        super(gameEngine, R.drawable.robot,BodyType.Circular);
+        //super(gameEngine.getContext(), R.drawable.enemy, gameEngine.pixelFactor); //Este es del libro pero no funciona.
+        super(gameEngine, R.drawable.enemy,BodyType.Circular);
         mSpeed = 200d * pixelFactor / 1000d;
+        System.out.println("SpeedY ENEMY _________________________"+mSpeed);
         mController = gameController;
     }
 

@@ -46,7 +46,8 @@ public abstract class Sprite extends ScreenGameObject {
 
 
         //////////////////////////////
-        //Debug que dibuja el circulo. //TODO quitar el debug de pintado.
+        //Debug que dibuja el circulo.
+        /*
         Paint mPaint= new Paint();
         mPaint.setColor(Color.BLACK);
         canvas.drawCircle(
@@ -55,7 +56,7 @@ public abstract class Sprite extends ScreenGameObject {
                 (int) mRadius,
                 mPaint);
         //////////////////////////////
-
+*/
 
         if (positionX > canvas.getWidth()
                 || positionY > canvas.getHeight()

@@ -3,6 +3,7 @@ package dadm.scaffold.counter;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,13 +53,15 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 GameView gameView = (GameView) getView().findViewById(R.id.gameView);
                 theGameEngine = new GameEngine(getActivity(), gameView);
                 theGameEngine.setTheInputController(new JoystickInputController(getView()));
-                theGameEngine.addGameObject(new ParallaxBackground(theGameEngine,400    ,R.drawable.wallpaper2));
-                theGameEngine.addGameObject(new ParallaxBackground(theGameEngine,600    ,R.drawable.planet));
+                theGameEngine.addGameObject(new ParallaxBackground(theGameEngine,100d   ,R.drawable.fondo0));//https://www.artstation.com/artwork/LWYvk
+                theGameEngine.addGameObject(new ParallaxBackground(theGameEngine,220d   ,R.drawable.fish_bg_transparent));//https://www.artstation.com/artwork/LWYvk
+
                 SpaceShipPlayer ssp = new SpaceShipPlayer(theGameEngine , ship_selected);
+                theGameEngine.addGameObject(new GameController(theGameEngine,ssp));
+                theGameEngine.addGameObject(new ParallaxBackground(theGameEngine,160d    ,R.drawable.water1));
                 theGameEngine.addGameObject(ssp);
                 theGameEngine.addGameObject(new PlayerHealthUI(theGameEngine,ssp));
                 theGameEngine.addGameObject(new PlayerScoreUI(theGameEngine,ssp));
-                theGameEngine.addGameObject(new GameController(theGameEngine,ssp));
                 theGameEngine.addGameObject(new FramesPerSecondCounter(theGameEngine));
                 theGameEngine.startGame();
             }
@@ -114,7 +117,15 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         theGameEngine.stopGame();
-                        ((ScaffoldActivity)getActivity()).navigateBack();
+                        FragmentManager fm = getActivity().getSupportFragmentManager();
+                        int c = fm.getBackStackEntryCount();
+                        //Se borra toda la pila para volver al menu principal.
+                        for(int i = 0; i < c; ++i) {
+                            fm.popBackStack();
+                        }
+                        //((ScaffoldActivity)getActivity()).navigateBack();
+
+
                     }
                 })
                 .setOnCancelListener(new DialogInterface.OnCancelListener() {

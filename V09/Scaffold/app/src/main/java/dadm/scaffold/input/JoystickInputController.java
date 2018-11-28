@@ -1,5 +1,8 @@
 package dadm.scaffold.input;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -11,6 +14,7 @@ public class JoystickInputController extends InputController {
     private float startingPositionY;
 
     private final double maxDistance;
+    private Canvas canvas;
 
     public JoystickInputController(View view) {
         view.findViewById(R.id.joystick_main).setOnTouchListener(new JoystickTouchListener());
@@ -19,6 +23,8 @@ public class JoystickInputController extends InputController {
         double pixelFactor = view.getHeight() / 400d;
         maxDistance = 50*pixelFactor;
     }
+
+
 
     private class JoystickTouchListener implements View.OnTouchListener {
         @Override

@@ -8,9 +8,13 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import dadm.scaffold.input.InputController;
+import dadm.scaffold.input.JoystickInputController;
+
 public class StandardGameView extends View implements GameView {
 
     private List<GameObject> gameObjects;
+    private JoystickInputController joystick;
 
     public StandardGameView(Context context) {
         super(context);
@@ -46,4 +50,5 @@ public class StandardGameView extends View implements GameView {
     public void setGameObjects(List<GameObject> gameObjects) {
         this.gameObjects = gameObjects;
     }
+    public  void setJoystick(InputController joystick){ this.joystick = (JoystickInputController) joystick; }
 }

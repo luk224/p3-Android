@@ -52,6 +52,7 @@ public class SpaceShipPlayer extends Sprite {
             specialBullets.add(new SpecialBullet(gameEngine,-30));
             specialBullets.add(new SpecialBullet(gameEngine,0));
             specialBullets.add(new SpecialBullet(gameEngine,30));
+
         }
     }
 
@@ -149,8 +150,7 @@ public class SpaceShipPlayer extends Sprite {
             timeSinceLastSpecialFire += elapsedMillis;
         }
 
-        //TODO Pulsar el boton de disparo: gameEngine.theInputController.isFiring    TIME_BETWEEN_SPECIAL_BULLETS
-        //TODO poner nuevo timelastSpecialFire
+
     }
 
     public void onCollision(GameEngine gameEngine, ScreenGameObject otherObject) {

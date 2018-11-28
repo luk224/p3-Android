@@ -13,7 +13,7 @@ public class SpecialBullet  extends Sprite {
     private int direction;
 
     public SpecialBullet(GameEngine gameEngine,int direction){ //0º is Up
-        super(gameEngine, R.drawable.bullet, BodyType.Circular);//TODO cambiar sprite
+        super(gameEngine, R.drawable.bullet, BodyType.Circular);
         rotation = -direction;
         this.direction= direction;
         mSpeed = gameEngine.pixelFactor * - 300d / 1000d;

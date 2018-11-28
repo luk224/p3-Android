@@ -10,18 +10,34 @@
     tools:context="dadm.scaffold.counter.EndOfGameFragment">
 
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="false"
+        android:scaleType="fitXY"
+        android:src="@drawable/shark_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/text_win"
-        android:layout_width="196dp"
-        android:layout_height="68dp"
+        android:layout_width="265dp"
+        android:layout_height="62dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:fontFamily="@font/ampersand"
+        android:gravity="center"
         android:text="Win or Lose"
         android:textAllCaps="true"
-        android:textSize="30sp"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@android:color/black"
+        android:textSize="40sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,36 +45,62 @@
 
     <TextView
         android:id="@+id/text_score"
-        android:layout_width="121dp"
+        android:layout_width="348dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:fontFamily="@font/ampersand"
+        android:gravity="center"
+        android:text="score"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_win" />
+
+    <TextView
+        android:id="@+id/text_time"
+        android:layout_width="368dp"
         android:layout_height="76dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="score"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/text_time"
+        android:fontFamily="@font/ampersand"
+        android:gravity="center"
+        android:text="time"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_win" />
+        app:layout_constraintTop_toBottomOf="@+id/text_score" />
 
-    <TextView
-        android:id="@+id/text_time"
-        android:layout_width="121dp"
-        android:layout_height="76dp"
+    <Button
+        android:id="@+id/btn_main_menu"
+        android:layout_width="140dp"
+        android:layout_height="81dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="32dp"
-        android:text="time"
-        android:textSize="24sp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/roundedbutton"
+        android:fontFamily="@font/ampersand"
+        android:padding="15dp"
+        android:text="@string/main_menu"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_time"
+        app:layout_constraintVertical_bias="0.148" />
 
 </android.support.constraint.ConstraintLayout>
