@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Shark Invasion!</string>
-    <string name="title_activity_main">Shark Invasion!</string>
-    <string name="hello_world">Hello</string>
+    <string name="app_name" translatable="false">Shark Invasion!</string>
+    <string name="title_activity_main" translatable="false">Shark Invasion!</string>
+    <string name="hello_world" translatable="false">Hello</string>
     <string name="pause">Pause</string>
     <string name="start">Start game</string>
-    <string name="game_title">Shark Invasion!</string>
+    <string name="game_title" translatable="false">Shark Invasion!</string>
     <string name="pause_dialog_title">Pause</string>
     <string name="pause_dialog_message">Resume to continue</string>
     <string name="resume">Resume</string>
