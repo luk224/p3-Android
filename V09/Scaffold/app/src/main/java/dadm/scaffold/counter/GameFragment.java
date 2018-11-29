@@ -2,7 +2,9 @@ package dadm.scaffold.counter;
 
 import android.content.DialogInterface;
 import android.app.AlertDialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +47,7 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
         view.findViewById(R.id.btn_play_pause).setOnClickListener(this);
         final ViewTreeObserver observer = view.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener(){
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onGlobalLayout(){
                 //Para evitar que sea llamado múltiples veces,
@@ -54,7 +57,7 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 theGameEngine = new GameEngine(getActivity(), gameView);
                 theGameEngine.setTheInputController(new JoystickInputController(getView()));
                 theGameEngine.addGameObject(new ParallaxBackground(theGameEngine,100d   ,R.drawable.fondo0));//https://www.artstation.com/artwork/LWYvk
-                theGameEngine.addGameObject(new ParallaxBackground(theGameEngine,220d   ,R.drawable.fish_bg_transparent));//https://www.artstation.com/artwork/LWYvk
+                theGameEngine.addGameObject(new ParallaxBackground(theGameEngine,220d   ,R.drawable.fish_bg_transparent));
 
                 SpaceShipPlayer ssp = new SpaceShipPlayer(theGameEngine , ship_selected);
                 theGameEngine.addGameObject(new GameController(theGameEngine,ssp));

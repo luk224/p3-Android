@@ -43,8 +43,6 @@ public abstract class Sprite extends ScreenGameObject {
 
     @Override
     public void onDraw(Canvas canvas) {
-
-
         //////////////////////////////
         //Debug que dibuja el circulo.
         /*
@@ -56,7 +54,7 @@ public abstract class Sprite extends ScreenGameObject {
                 (int) mRadius,
                 mPaint);
         //////////////////////////////
-*/
+        */
 
         if (positionX > canvas.getWidth()
                 || positionY > canvas.getHeight()

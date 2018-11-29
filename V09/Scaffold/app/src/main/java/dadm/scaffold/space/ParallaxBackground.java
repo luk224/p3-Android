@@ -20,8 +20,7 @@ public class ParallaxBackground extends GameObject {
     private final Matrix mMatrix = new Matrix();
     private Rect mSrcRect, mDstRect;
 
-    public ParallaxBackground(GameEngine gameEngine, double speed,
-                              int drawableResId) {
+    public ParallaxBackground(GameEngine gameEngine, double speed,int drawableResId) {
         Drawable spriteDrawable = gameEngine.getContext().getResources()
                 .getDrawable(drawableResId);
 

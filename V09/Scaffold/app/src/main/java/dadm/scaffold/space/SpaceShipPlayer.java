@@ -21,6 +21,7 @@ public class SpaceShipPlayer extends Sprite {
 
     private static final int INITIAL_BULLET_POOL_AMOUNT = 6,INITIAL_SPECIAL_BULLET_POOL_AMOUNT = 1;//numero de disparos (3 sprites cada uno)
     private static final long TIME_BETWEEN_BULLETS = 500,TIME_BETWEEN_SPECIAL_BULLETS=2000, IMMORTAL_TIME= 5000;
+
     List<Bullet> bullets = new ArrayList<Bullet>();
     List<SpecialBullet> specialBullets = new ArrayList<SpecialBullet>();
 

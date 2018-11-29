@@ -47,6 +47,7 @@ public class PlayerScoreUI extends GameObject{
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDraw(Canvas canvas) {
 
