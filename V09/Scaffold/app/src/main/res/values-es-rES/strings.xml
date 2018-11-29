@@ -6,10 +6,10 @@
     <string name="pause_dialog_message">Continuar para seguir jugando</string>
     <string name="resume">Continuar</string>
     <string name="stop">Salir</string>
-    <string name="main_menu">Menú principal</string>
-    <string name="score">Puntuación:</string>
+    <string name="main_menu">Menu principal</string>
+    <string name="score">Puntos:</string>
     <string name="health">Vida:</string>
     <string name="time">Tiempo:</string>
-    <string name="youwon">Vitoria!</string>
+    <string name="youwon">¡Victoria!</string>
     <string name="youlose">Derrota...</string>
 </resources>
